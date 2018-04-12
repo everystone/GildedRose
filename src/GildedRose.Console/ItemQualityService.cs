@@ -1,48 +1,25 @@
-﻿namespace GildedRose.Console
+﻿using GildedRose.Console.Interfaces;
+using GildedRose.Console.Strategies;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace GildedRose.Console
 {
     class ItemQualityService : IItemQualityService
     {
-
-        private void UpdateBackStagePases(Item item)
+        private Dictionary<string, IUpdateQualityStrategy> _strategies = new Dictionary<string, IUpdateQualityStrategy>()
         {
-            if (item.SellIn <= 0)
-            {
-                item.Quality = 0;
-                return;
-            }
+            {"Aged Brie", new AgedBrieStrategy() },
+            {"Backstage passes to a TAFKAL80ETC concert", new BackStagePassStrategy() },
+            {"Default", new DefaultQualityStrategy() },
+            {"Conjured Mana Cake", new ConjuredItemsStrategy()}
+        };
 
-            if (item.SellIn < 6)
-            {
-                item.Increase(3);
-            }
-            else if (item.SellIn < 11)
-            {
-                item.Increase(2);
-            } else
-            {
-                item.Increase(1);
-            }
 
-            
-
-        }
         public void UpdateItem(Item item)
         {
-            switch(item.Name)
-            {
-                case "Aged Brie":
-                    item.Increase(item.SellIn < 1 ? 2 : 1);
-                    break;
-                case "Backstage passes to a TAFKAL80ETC concert":
-                    UpdateBackStagePases(item);
-                    break;
-                case "Sulfuras, Hand of Ragnaros":
-                    break;
-                default:
-                    item.Decrease();
-                    break;
-            }
-
+            var strategy = _strategies.ContainsKey(item.Name) ? _strategies[item.Name] : _strategies["Default"];
+            strategy.UpdateQuality(item);
             if(!item.Name.Contains("Sulfuras"))
             {
                 item.SellIn -= 1;

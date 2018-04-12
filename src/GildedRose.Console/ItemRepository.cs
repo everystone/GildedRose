@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using GildedRose.Console.Interfaces;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace GildedRose.Console

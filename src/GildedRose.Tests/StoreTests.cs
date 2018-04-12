@@ -101,5 +101,14 @@ namespace GildedRose.Tests
             SkipDays(1);
             Assert.Equal(pass.Quality, 0);
         }
+
+        [Fact]
+        public void ConjuredItemsDegradeTwiceAsFast()
+        {
+            var item = Store.GetItem("Conjured");
+            Assert.Equal(item.Quality, 6);
+            SkipDays(1);
+            Assert.Equal(item.Quality, 4);
+        }
     }
 }

@@ -41,8 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IRepository.cs" />
-    <Compile Include="IItemQualityService.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\IItemQualityService.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="ItemQualityService.cs" />
     <Compile Include="ItemRepository.cs" />
@@ -50,6 +50,11 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Store.cs" />
+    <Compile Include="Strategies\AgedBrieStrategy.cs" />
+    <Compile Include="Strategies\ConjuredItemsStrategy.cs" />
+    <Compile Include="Strategies\DefaultQualityStrategy.cs" />
+    <Compile Include="Interfaces\IUpdateQualityStrategy.cs" />
+    <Compile Include="Strategies\UpdateBackStagePassStrategy.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

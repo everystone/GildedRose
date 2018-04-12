@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace GildedRose.Console
+namespace GildedRose.Console.Interfaces
 {
     internal interface IRepository<T>
     {

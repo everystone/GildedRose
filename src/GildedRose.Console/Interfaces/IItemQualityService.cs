@@ -1,4 +1,4 @@
-﻿namespace GildedRose.Console
+﻿namespace GildedRose.Console.Interfaces
 {
     internal interface IItemQualityService
     {
