@@ -1,4 +1,5 @@
 using GildedRose.Console;
+using System.Linq;
 using Xunit;
 
 namespace GildedRose.Tests
@@ -60,11 +61,32 @@ namespace GildedRose.Tests
         [Fact]
         public void QualityDegradesTwiceAfterSellDate()
         {
-
+            var item = Store.GetItem("Vest");
+            Assert.Equal(item.Quality, 20);
+            SkipDays(item.SellIn);
+            Assert.Equal(item.Quality, 10);
+            SkipDays(1);
+            Assert.Equal(item.Quality, 8);
+            SkipDays(1);
+            Assert.Equal(item.Quality, 6);
         }
 
         [Fact]
-        public void BackStagePasses()
+        public void QualityShouldNotGoNegative()
+        {
+            SkipDays(100);
+            var items = Store.GetAllItems();
+            items.ForEach(i => Assert.True(i.Quality >= 0));
+        }
+        [Fact]
+        public void QualityShouldNotBeAbove50ExceptSulfuras()
+        {
+            SkipDays(100);
+            var items = Store.GetAllItems().Where(i => !i.Name.Contains("Sulfuras")).ToList();
+            items.ForEach(i => Assert.True(i.Quality <= 50));
+        }
+        [Fact]
+        public void BackStagePassesIncreasesInQualityUntilConcert()
         {
             var pass = Store.GetItem("Backstage");
             Assert.Equal(pass.Quality, 20);

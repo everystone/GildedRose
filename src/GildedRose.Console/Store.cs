@@ -24,5 +24,6 @@ namespace GildedRose.Console
         }
 
         public Item GetItem(string name) => _repository.GetItem(name);
+        public List<Item> GetAllItems() => _repository.GetAll();
     }
 }
